@@ -1,0 +1,5 @@
+name: fgis-local
+
+version: '3'
+
+services:

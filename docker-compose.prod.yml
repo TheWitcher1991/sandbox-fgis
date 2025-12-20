@@ -1,0 +1,5 @@
+name: fgis-production
+
+version: '3'
+
+services:
