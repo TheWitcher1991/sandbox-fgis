@@ -1,0 +1,30 @@
+from django.contrib.auth.models import AbstractUser, UserManager
+from django.db import models
+
+from packages.kernel.utils import t
+
+
+class ModelAdapter(models.Model):
+    created_at = models.DateTimeField(t("Дата создания"), auto_now_add=True)
+    updated_at = models.DateTimeField(t("Дата обновления"), auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class UserModelAdapter(AbstractUser):
+    objects = UserManager()
+
+    class Meta:
+        abstract = True
+
+
+from django.db.models import QuerySet
+from django_filters.rest_framework import CharFilter, FilterSet
+
+
+class FilterAdapter(FilterSet):
+    ordering = CharFilter(field_name="ordering", method="filter_ordering")
+
+    def filter_ordering(self, queryset: QuerySet, name, value):
+        return queryset.order_by(value)
