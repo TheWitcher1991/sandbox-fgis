@@ -13,5 +13,12 @@ INSTALLED_APPS = [
     "django_filters",
     "packages",
     "users",
+    "applications",
+    "knowledge",
+    "manufacturers",
+    "parties",
+    "reports",
+    "roles",
+    "training",
     "drf_spectacular",
 ]

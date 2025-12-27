@@ -5,7 +5,7 @@ from django.db import transaction
 from packages.framework.contrib import authenticate
 from packages.kernel.types import ExtendedRequest
 from packages.usecases.jwt import jwt_use_case
-from services.users.usecases import user_use_case
+from users.usecases import user_use_case
 
 
 class AuthUseCase:

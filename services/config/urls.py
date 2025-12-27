@@ -23,6 +23,13 @@ urlpatterns = [
     path("v1/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
     path("", include("django_prometheus.urls")),
     path("v1/", include("users.routers", namespace="users")),
+    path("v1/", include("applications.routers", namespace="applications")),
+    path("v1/", include("knowledge.routers", namespace="knowledge")),
+    path("v1/", include("manufacturers.routers", namespace="manufacturers")),
+    path("v1/", include("parties.routers", namespace="parties")),
+    path("v1/", include("reports.routers", namespace="reports")),
+    path("v1/", include("roles.routers", namespace="roles")),
+    path("v1/", include("training.routers", namespace="training")),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
