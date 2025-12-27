@@ -1,4 +1,3 @@
-from re import A
 from typing import NewType
 
 from django.db import models

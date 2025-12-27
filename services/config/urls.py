@@ -22,6 +22,7 @@ urlpatterns = [
     ),
     path("v1/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
     path("", include("django_prometheus.urls")),
+    path("v1/", include("organizations.routers", namespace="organizations")),
     path("v1/", include("users.routers", namespace="users")),
     path("v1/", include("applications.routers", namespace="applications")),
     path("v1/", include("knowledge.routers", namespace="knowledge")),

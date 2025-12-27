@@ -12,6 +12,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "packages",
+    "organizations",
     "users",
     "applications",
     "knowledge",

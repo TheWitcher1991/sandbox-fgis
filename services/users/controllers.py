@@ -1,5 +1,5 @@
 from packages.framework.controllers import BaseSetController
-from users.usecases import UserUseCase
+from users.usecases.user import UserUseCase
 
 
 class UserSetController(BaseSetController):

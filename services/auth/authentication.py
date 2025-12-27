@@ -3,7 +3,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from packages.framework.authentication import BaseAPIAuthentication
 from packages.kernel.utils import t
 from packages.usecases.jwt import jwt_use_case
-from users.usecases import user_use_case
+from users.usecases.user import user_use_case
 
 
 class APIAuthentication(BaseAPIAuthentication):
