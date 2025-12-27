@@ -1,5 +1,8 @@
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
+from django.db.models import QuerySet
+from django_filters.rest_framework import CharFilter, FilterSet
+from rest_framework import serializers
 
 from packages.kernel.utils import t
 
@@ -19,12 +22,16 @@ class UserModelAdapter(AbstractUser):
         abstract = True
 
 
-from django.db.models import QuerySet
-from django_filters.rest_framework import CharFilter, FilterSet
-
-
 class FilterAdapter(FilterSet):
     ordering = CharFilter(field_name="ordering", method="filter_ordering")
 
     def filter_ordering(self, queryset: QuerySet, name, value):
         return queryset.order_by(value)
+
+
+class SerializerAdapter(serializers.Serializer):
+    pass
+
+
+class ModelSerializerAdapter(serializers.ModelSerializer):
+    pass

@@ -1,9 +1,16 @@
 from datetime import datetime, timedelta
+from typing import Type, Union
 
 import jwt
+from django.contrib.contenttypes.models import ContentType
+from django.db.models import Model
 from django.utils.translation import gettext_lazy
 
 from config.settings import HASH_ALGORITHM, SECRET_KEY, SESSION_EXPIRE_DAYS, SESSION_EXPIRE_MINUTES
+
+
+def get_content_type_for_model(obj: Union[Model, Type[Model]], for_concrete_model=True) -> ContentType:
+    return ContentType.objects.get_for_model(obj, for_concrete_model)
 
 
 def t(value: str) -> str:

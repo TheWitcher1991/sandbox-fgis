@@ -3,7 +3,7 @@ from django.conf import settings
 from packages.kernel.types import LoggerResource
 
 
-class Logger:
+class LoggerUseCase:
 
     def __init__(self):
         pass
@@ -46,3 +46,6 @@ class Logger:
 
     def critical(self, message, resource_type: LoggerResource, **kwargs):
         self._log("CRITICAL", message, resource_type=resource_type, **kwargs)
+
+
+logger_use_case = LoggerUseCase()
