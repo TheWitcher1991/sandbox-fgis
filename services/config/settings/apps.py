@@ -12,5 +12,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "packages",
+    "users",
     "drf_spectacular",
 ]
