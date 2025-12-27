@@ -1,8 +1,10 @@
-from typing import Generic, Type, TypeVar
+from typing import Any, Generic, Optional, Type, TypeVar
 
+from django.core.cache import cache
 from django.db import models, transaction
 from rest_framework.generics import get_object_or_404
 
+from packages.framework.caching import clean_cache_by_tag
 from packages.kernel.utils import get_content_type_for_model
 
 T = TypeVar("T", bound=models.Model)
@@ -75,3 +77,115 @@ class UseCaseAdapter(Generic[T, K]):
 
     def delete(self, pk: K) -> tuple[int, dict]:
         return self.get_queryset().filter(id=pk).delete()
+
+
+class CacheUseCaseAdapter:
+    """
+    Базовый адаптер с кэшированием.
+    """
+
+    cache_prefix: str = "service"
+    cache_queryset_key: str = "queryset"
+    cache_object_key: str = "object"
+    cache_retrieve_key: str = "retrieve"
+    cache_prefix_delimiter: str = "_"
+
+    def get_queryset_cache_key(self) -> str:
+        """
+        Генерирует ключ для кэша для набора данных.
+        """
+        return f"{self.cache_prefix}{self.cache_prefix_delimiter}{self.cache_queryset_key}"
+
+    def get_object_cache_key(self, pk: int) -> str:
+        """
+        Генерирует ключ для кэша для объекта.
+        """
+        return (
+            f"{self.cache_prefix}{self.cache_prefix_delimiter}{self.cache_object_key}{self.cache_prefix_delimiter}{pk}"
+        )
+
+    def get_retrieve_cache_key(self, pk: int) -> str:
+        """
+        Генерирует ключ для кэша для объекта.
+        """
+        return f"{self.cache_prefix}{self.cache_prefix_delimiter}{self.cache_retrieve_key}{self.cache_prefix_delimiter}{pk}"
+
+    def get_cache_key(self, key: str) -> str:
+        """
+        Генерирует полный ключ для кэша.
+        """
+        return f"{self.cache_prefix}{self.cache_prefix_delimiter}{key}"
+
+    def set_cache(self, key: str, value: Any, timeout: Optional[int] = None):
+        """
+        Устанавливает значение в кэше.
+        """
+        cache.set(self.get_cache_key(key), value, timeout)
+
+    def get_cache(self, key: str) -> Optional[Any]:
+        """
+        Получает значение из кэша.
+        """
+        return cache.get(self.get_cache_key(key))
+
+    def delete_cache(self, key: str):
+        """
+        Удаляет конкретный ключ из кэша.
+        """
+        cache.delete(self.get_cache_key(key))
+
+    def delete_global_cache(self):
+        """
+        Удаляет все ключи, которые начинаются с self.cache_prefix.
+        """
+        clean_cache_by_tag(f"{self.cache_prefix}")
+
+    def delete_queryset_cache(self):
+        """
+        Удаляет все ключи, которые начинаются с self.cache_queryset_key.
+        """
+        clean_cache_by_tag(f"{self.cache_prefix}{self.cache_prefix_delimiter}{self.cache_queryset_key}")
+
+    def delete_object_cache(self, pk: int):
+        """
+        Удаляет все ключи, которые начинаются с self.cache_object_key.
+        """
+        clean_cache_by_tag(
+            f"{self.cache_prefix}{self.cache_prefix_delimiter}{self.cache_object_key}{self.cache_prefix_delimiter}{pk}"
+        )
+
+    def delete_retrieve_cache(self, pk: int):
+        """
+        Удаляет все ключи, которые начинаются с self.cache_retrieve_key.
+        """
+        clean_cache_by_tag(
+            f"{self.cache_prefix}{self.cache_prefix_delimiter}{self.cache_retrieve_key}{self.cache_prefix_delimiter}{pk}"
+        )
+
+    def delete_user_queryset_cache(self, user_id: int):
+        """
+        Удаляет все ключи, которые начинаются с self.cache_queryset_key.
+        """
+        clean_cache_by_tag(
+            f"{self.cache_prefix}{self.cache_prefix_delimiter}{self.cache_queryset_key}{self.cache_prefix_delimiter}{user_id}"
+        )
+
+    def delete_user_object_cache(self, user_id: int, pk: int):
+        """
+        Удаляет все ключи, которые начинаются с self.cache_object_key.
+        """
+        clean_cache_by_tag(
+            f"{self.cache_prefix}{self.cache_prefix_delimiter}{self.cache_object_key}{self.cache_prefix_delimiter}{pk}{self.cache_prefix_delimiter}{user_id}"
+        )
+
+    def delete_user_retrieve_cache(self, user_id: int, pk: int):
+        """
+        Удаляет все ключи, которые начинаются с self.cache_retrieve_key.
+        """
+        clean_cache_by_tag(
+            f"{self.cache_prefix}{self.cache_prefix_delimiter}{self.cache_retrieve_key}{self.cache_prefix_delimiter}{pk}{self.cache_prefix_delimiter}{user_id}"
+        )
+
+
+class CacheModelUseCaseAdapter(UseCaseAdapter[T, K], CacheUseCaseAdapter):
+    pass

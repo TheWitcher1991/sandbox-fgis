@@ -1,10 +1,12 @@
+from ast import Dict
+
 from config.settings import AUTH_TOKEN_TYPE
 from packages.kernel.utils import jwt_decode, jwt_encode, jwt_is_valid
 
 
 class JWTUseCase:
 
-    def sign(user) -> dict:
+    def sign(user) -> Dict:
         access_token, access_token_expires = jwt_encode(user)
         refresh_token, refresh_token_expires = jwt_encode(user, is_refresh=True)
 
@@ -19,7 +21,7 @@ class JWTUseCase:
 
         return data
 
-    def refresh(user):
+    def refresh(user) -> Dict:
         access_token, access_token_expires = jwt_encode(user)
 
         data = {
