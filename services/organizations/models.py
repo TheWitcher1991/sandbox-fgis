@@ -8,8 +8,9 @@ from roles.types import RoleType
 class Organization(ModelAdapter):
     name = models.CharField("Название", max_length=255)
     inn = models.CharField("ИНН", max_length=12)
-    kpp = models.CharField("КПП", max_length=10, blank=True, null=True)
-    ogrn = models.CharField("ОГРН или ОГРНИП", max_length=15)
+    kpp = models.CharField("КПП", max_length=9, blank=True, null=True)
+    ogrn = models.CharField("ОГРН", max_length=13, blank=True, null=True)
+    oktmo = models.CharField("ОКТМО", max_length=11, blank=True, null=True)
     legal_name = models.CharField("Наименование как в уставе", max_length=255, blank=True, null=True)
     legal_address = models.CharField("Юридический адрес", max_length=255, blank=True, null=True)
     actual_address = models.CharField("Фактический адрес", max_length=255, blank=True, null=True)

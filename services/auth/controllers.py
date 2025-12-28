@@ -9,6 +9,7 @@ from packages.framework.controllers import BaseSetController
 from packages.framework.mixins import AllowAnyMixin
 from packages.kernel.types import ExtendedRequest
 from packages.usecases.serializer import SerializerUseCase
+from users.usecases.user import user_use_case
 
 
 class AuthSetController(AllowAnyMixin, BaseSetController):

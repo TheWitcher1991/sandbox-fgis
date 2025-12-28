@@ -22,6 +22,7 @@ class AuthUseCase:
         session = jwt_use_case.sign(user)
 
         session["user"] = user.id
+        session["role"] = user.member.role
 
         return session
 

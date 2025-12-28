@@ -3,7 +3,8 @@ from django.db import models
 from config.settings.base import CHAR_MAX_LENGTH
 from packages.kernel.adapters import ModelAdapter, UserModelAdapter
 from packages.kernel.utils import t
-from users.types import EmployeeRole
+from users.managers import UserManager
+from users.types import MemberRole
 
 
 class User(UserModelAdapter):
@@ -18,19 +19,22 @@ class User(UserModelAdapter):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["phone"]
 
+    objects = UserManager()
+
     class Meta:
         ordering = ("-date_joined",)
         verbose_name = t("Пользователь")
         verbose_name_plural = t("Пользователи")
 
 
-class Employee(ModelAdapter):
+class Member(ModelAdapter):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-    organization = models.ForeignKey(
-        to="organizations.Organization", on_delete=models.CASCADE, related_name="employees"
-    )
-    role = models.CharField(max_length=20, choices=EmployeeRole.choices, default=EmployeeRole.OPERATOR)
-    position = models.CharField(t(), max_length=CHAR_MAX_LENGTH, blank=True)
+    organization = models.ForeignKey(to="organizations.Organization", on_delete=models.CASCADE, related_name="members")
+    role = models.CharField(max_length=20, choices=MemberRole.choices, default=MemberRole.OPERATOR)
+    position = models.CharField(t(), max_length=CHAR_MAX_LENGTH, blank=True, null=True)
+    inn = models.CharField("ИНН", max_length=12, blank=True, null=True)
+    snils = models.CharField("СНИЛС", max_length=11, blank=True, null=True)
+    esia = models.CharField("ЕСИА", max_length=255, blank=True, null=True)
 
     class Meta:
         ordering = ("-created_at",)
