@@ -1,4 +1,3 @@
-from optparse import Option
 from typing import Optional
 
 from django.contrib.auth import authenticate as django_authenticate
