@@ -30,11 +30,11 @@ class User(UserModelAdapter):
 class Member(ModelAdapter):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
     organization = models.ForeignKey(to="organizations.Organization", on_delete=models.CASCADE, related_name="members")
-    role = models.CharField(max_length=20, choices=MemberRole.choices, default=MemberRole.OPERATOR)
-    position = models.CharField(t(), max_length=CHAR_MAX_LENGTH, blank=True, null=True)
-    inn = models.CharField("ИНН", max_length=12, blank=True, null=True)
-    snils = models.CharField("СНИЛС", max_length=11, blank=True, null=True)
-    esia = models.CharField("ЕСИА", max_length=255, blank=True, null=True)
+    role = models.CharField(t("Роль"), max_length=20, choices=MemberRole.choices, default=MemberRole.OPERATOR)
+    position = models.CharField(t("Должность"), max_length=CHAR_MAX_LENGTH, blank=True, null=True)
+    inn = models.CharField(t("ИНН"), max_length=12, blank=True, null=True)
+    snils = models.CharField(t("СНИЛС"), max_length=11, blank=True, null=True)
+    esia = models.CharField(t("ЕСИА"), max_length=255, blank=True, null=True)
 
     class Meta:
         ordering = ("-created_at",)

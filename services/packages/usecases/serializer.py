@@ -12,17 +12,21 @@ class SerializerUseCase:
 
     def _get_valid_serializer(
         self, serializer_class: Type[SerializerAdapter], data: Any, context: Optional[Dict] = None
-    ):
+    ) -> SerializerAdapter:
         serializer = serializer_class(data=data, context=context)
         serializer.is_valid(raise_exception=True)
         return serializer
 
-    def save(self, serializer_class: Type[SerializerAdapter], data: Any, context: Optional[Dict] = None):
+    def save(
+        self, serializer_class: Type[SerializerAdapter], data: Any, context: Optional[Dict] = None
+    ) -> SerializerAdapter:
         serializer = self._get_valid_serializer(serializer_class, data, context)
         serializer.save()
         return serializer
 
-    def is_valid(self, serializer_class: Type[SerializerAdapter], data: Any, context: Optional[Dict] = None):
+    def is_valid(
+        self, serializer_class: Type[SerializerAdapter], data: Any, context: Optional[Dict] = None
+    ) -> SerializerAdapter:
         return self._get_valid_serializer(serializer_class, data, context)
 
 

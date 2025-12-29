@@ -7,6 +7,9 @@ class UserUseCase(UseCaseAdapter[User, UserId]):
     def __init__(self):
         super().__init__(User)
 
+    def optimize(self):
+        return self.objects.select_related("member")
+
     def anonymous(self):
         from django.contrib.auth.models import AnonymousUser
 
