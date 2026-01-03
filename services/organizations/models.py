@@ -2,7 +2,6 @@ from django.db import models
 
 from packages.kernel.adapters import ModelAdapter
 from packages.kernel.utils import t
-from roles.types import RoleType
 
 
 class Organization(ModelAdapter):

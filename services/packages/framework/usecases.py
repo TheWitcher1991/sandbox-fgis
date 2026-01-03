@@ -83,6 +83,10 @@ class UseCaseAdapter(Generic[T, K]):
         return self.get_queryset().filter(id=pk).delete()
 
 
+class RepositoryAdapter(UseCaseAdapter[T, K]):
+    pass
+
+
 class CacheUseCaseAdapter:
     """
     Базовый адаптер с кэшированием.

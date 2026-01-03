@@ -1,6 +1,5 @@
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.response import Response
 
 from auth.serializers import LoginSerializer, RegisterSerializer
 from auth.usecases import AuthUseCase
@@ -20,11 +19,11 @@ class AuthSetController(AllowAnyMixin, BaseSetController):
 
     @action(methods=["post"], url_path="login", serializer_class=LoginSerializer)
     def login(self, request: ExtendedRequest, *args, **kwargs):
-        serializer = self.serializer_use_case.save(self.get_serializer_class(), request.data)
+        serializer = self.serializer_use_case.save(serializer_class=self.get_serializer_class(), data=request.data)
 
         result = self.use_case.login(request, serializer.validated_data)
 
-        response = Response(result, status=status.HTTP_200_OK)
+        response = self.get_response(result, status=status.HTTP_200_OK)
 
         response.set_cookie(
             REFRESH_TOKEN_NAME,
@@ -39,15 +38,15 @@ class AuthSetController(AllowAnyMixin, BaseSetController):
 
     @action(methods=["post"], url_path="register", serializer_class=RegisterSerializer)
     def register(self, request: ExtendedRequest, *args, **kwargs):
-        serializer = self.serializer_use_case.save(self.get_serializer_class(), request.data)
+        serializer = self.serializer_use_case.save(serializer_class=self.get_serializer_class(), data=request.data)
 
         result = self.use_case.register(serializer.validated_data)
 
-        return Response(result, status=status.HTTP_201_CREATED)
+        return self.get_response(result, status=status.HTTP_201_CREATED)
 
     @action(methods=["post"], url_path="logout")
     def logout(self, *args, **kwargs):
-        response = Response(status=status.HTTP_204_NO_CONTENT)
+        response = self.get_response(status=status.HTTP_204_NO_CONTENT)
 
         response.delete_cookie(REFRESH_TOKEN_NAME)
 
@@ -59,15 +58,15 @@ class AuthSetController(AllowAnyMixin, BaseSetController):
     def refresh(self, request: ExtendedRequest, *args, **kwargs):
         result = self.use_case.refresh(request)
 
-        response = Response(result)
+        response = self.get_response(result)
 
-        response.set_cookie(
-            REFRESH_TOKEN_NAME,
-            result.get("refresh_token"),
-            httponly=True,
-            secure=True,
-            samesite="Strict",
-            expires=SESSION_EXPIRE_TIMEOUT,
-        )
+        # response.set_cookie(
+        #     REFRESH_TOKEN_NAME,
+        #     result.get("refresh_token"),
+        #     httponly=True,
+        #     secure=True,
+        #     samesite="Strict",
+        #     expires=SESSION_EXPIRE_TIMEOUT
+        # )
 
         return response

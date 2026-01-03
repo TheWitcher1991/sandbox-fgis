@@ -1,6 +1,6 @@
 from django.db import models
 
-from config.settings.base import CHAR_MAX_LENGTH
+from config.settings import CHAR_MAX_LENGTH
 from packages.kernel.adapters import ModelAdapter, UserModelAdapter
 from packages.kernel.utils import t
 from users.managers import UserManager
@@ -30,7 +30,7 @@ class User(UserModelAdapter):
 class Member(ModelAdapter):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
     organization = models.ForeignKey(to="organizations.Organization", on_delete=models.CASCADE, related_name="members")
-    role = models.CharField(t("Роль"), max_length=20, choices=MemberRole.choices, default=MemberRole.OPERATOR)
+    role = models.CharField(t("Роль"), max_length=20, choices=MemberRole.choices, default=MemberRole.operator)
     position = models.CharField(t("Должность"), max_length=CHAR_MAX_LENGTH, blank=True, null=True)
     inn = models.CharField(t("ИНН"), max_length=12, blank=True, null=True)
     snils = models.CharField(t("СНИЛС"), max_length=11, blank=True, null=True)

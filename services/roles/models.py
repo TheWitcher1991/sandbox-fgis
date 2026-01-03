@@ -1,6 +1,6 @@
 from django.db import models
 
-from config.settings.base import TEXT_MAX_LENGTH
+from config.settings import TEXT_MAX_LENGTH
 from packages.kernel.adapters import ModelAdapter
 from packages.kernel.utils import t
 from roles.types import RoleType

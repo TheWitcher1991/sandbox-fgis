@@ -1,9 +1,11 @@
+from typing import Type
+
 from rest_framework.routers import SimpleRouter
 
 from packages.framework.controllers import Controller
 
 
-def auto_router(*controllers: Controller):
+def auto_router(*controllers: Type[Controller]):
     router = SimpleRouter()
 
     for ctrl in controllers:

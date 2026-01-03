@@ -1,25 +1,24 @@
-from ast import Dict
-
 from django.db import transaction
 
+from auth.types import LoginData, LoginSession
+from organizations.types import CreateOrganizationData, CreateOrganizationDTO
 from organizations.usecases import organization_use_case
 from packages.framework.contrib import authenticate
-from packages.kernel.types import ExtendedRequest
+from packages.kernel.types import ExtendedRequest, JWTRefreshSession
 from packages.usecases.jwt import jwt_use_case
-from services.organizations.types import CreateOrganizationDTO
-from users.usecases.user import user_use_case
 
 
 class AuthUseCase:
-    def refresh(self, request: ExtendedRequest) -> Dict:
+    def refresh(self, request: ExtendedRequest) -> JWTRefreshSession:
         return jwt_use_case.refresh(request.user)
 
     @transaction.atomic
-    def login(self, request: ExtendedRequest, data: Dict) -> Dict:
-        email = data.get("email")
-        password = data.get("password")
-
-        user = authenticate(request=request, email=email, password=password)
+    def login(self, request: ExtendedRequest, data: LoginData) -> LoginSession:
+        user = authenticate(
+            request=request,
+            email=data["email"],
+            password=data["password"],
+        )
 
         session = jwt_use_case.sign(user)
 
@@ -32,19 +31,8 @@ class AuthUseCase:
         return session
 
     @transaction.atomic
-    def register(self, data: Dict) -> Dict:
-        dto = CreateOrganizationDTO(
-            name=data.get("name"),
-            inn=data.get("inn"),
-            email=data.get("email"),
-            phone=data.get("phone"),
-            first_name=data.get("first_name"),
-            last_name=data.get("last_name"),
-            surname=data.get("surname"),
-            position=data.get("position"),
-            password=data.get("password"),
-            role=data.get("role"),
-        )
+    def register(self, data: CreateOrganizationData) -> CreateOrganizationData:
+        dto = CreateOrganizationDTO(**data)
 
         organization_use_case.register(dto)
 

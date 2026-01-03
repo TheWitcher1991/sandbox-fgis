@@ -1,7 +1,9 @@
-from typing import Dict, List, Optional, Type, TypeVar
+from typing import Any, Dict, List, Optional, Type, TypeVar
 
 from rest_framework import generics, mixins, viewsets
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.status import HTTP_200_OK
 
 TAuth = TypeVar("TAuth")
 TPermission = TypeVar("TPermission")
@@ -71,6 +73,15 @@ class Controller:
 
         action_or_method = self._get_action_or_method()
         return self.serializer_class_map.get(action_or_method) or self.serializer_class
+
+    def get_response(self, data: Any, status: int = HTTP_200_OK, serializer=None) -> Response:
+        if serializer:
+            if isinstance(data, list):
+                return Response(serializer(data, many=True).data, status=status)
+            else:
+                return Response(serializer(data).data, status=status)
+        else:
+            return Response(data, status=status)
 
 
 class APIController(Controller, generics.GenericAPIView):
