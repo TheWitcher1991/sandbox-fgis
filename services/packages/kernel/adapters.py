@@ -30,8 +30,10 @@ class FilterAdapter(FilterSet):
 
 
 class SerializerAdapter(serializers.Serializer):
-    pass
+    def to_dto(self, dto_class):
+        return dto_class(**self.validated_data)
 
 
 class ModelSerializerAdapter(serializers.ModelSerializer):
-    pass
+    def to_dto(self, dto_class):
+        return dto_class(**self.validated_data)
