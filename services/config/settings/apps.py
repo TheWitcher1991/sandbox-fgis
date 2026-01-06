@@ -21,5 +21,6 @@ INSTALLED_APPS = [
     "reports",
     "roles",
     "training",
+    "directory",
     "drf_spectacular",
 ]

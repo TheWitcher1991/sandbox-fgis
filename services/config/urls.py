@@ -31,6 +31,7 @@ urlpatterns = [
     path("v1/", include("reports.routers", namespace="reports")),
     path("v1/", include("roles.routers", namespace="roles")),
     path("v1/", include("training.routers", namespace="training")),
+    path("v1/", include("directory.routers", namespace="directory")),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
