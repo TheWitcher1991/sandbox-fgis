@@ -1,13 +1,13 @@
 from django.db import transaction
 
 from organizations.models import Organization
-from organizations.types import CreateOrganizationDTO, OrganizationId, UpdateOrganizationData
+from organizations.types import CreateOrganizationDTO, OrganizationId, UpdateOrganizationDTO
 from packages.framework.usecases import UseCaseAdapter
 from packages.kernel.types import ExtendedRequest
 from roles.types import RoleType
-from services.users.usecases.member import member_use_case
-from services.users.usecases.user import user_use_case
 from users.types import MemberId, MemberRole
+from users.usecases.member import member_use_case
+from users.usecases.user import user_use_case
 
 
 class OrganizationUseCase(UseCaseAdapter[Organization, OrganizationId]):
@@ -30,7 +30,7 @@ class OrganizationUseCase(UseCaseAdapter[Organization, OrganizationId]):
         return self.get_by_member(member_id).role.code
 
     @transaction.atomic
-    def edit(self, id: OrganizationId, data: UpdateOrganizationData) -> UpdateOrganizationData:
+    def edit(self, id: OrganizationId, data: UpdateOrganizationDTO) -> UpdateOrganizationDTO:
         return data
 
     @transaction.atomic

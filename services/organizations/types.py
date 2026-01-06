@@ -1,12 +1,12 @@
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import NewType, Optional, TypedDict
 
-from services.roles.types import RoleId
+from roles.types import RoleId
 
 OrganizationId = NewType("OrganizationId", int)
 
 
-class UpdateOrganizationData(TypedDict):
+class UpdateOrganizationDTO(TypedDict):
     pass
 
 

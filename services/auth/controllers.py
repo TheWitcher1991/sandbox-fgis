@@ -17,7 +17,7 @@ class AuthSetController(AllowAnyMixin, BaseSetController):
     use_case = AuthUseCase()
     serializer_use_case = SerializerUseCase()
 
-    @action(methods=["post"], url_path="login", serializer_class=LoginSerializer)
+    @action(detail=False, methods=["post"], url_path="login", serializer_class=LoginSerializer)
     def login(self, request: ExtendedRequest, *args, **kwargs):
         serializer = self.serializer_use_case.save(serializer_class=self.get_serializer_class(), data=request.data)
 
@@ -36,7 +36,7 @@ class AuthSetController(AllowAnyMixin, BaseSetController):
 
         return response
 
-    @action(methods=["post"], url_path="register", serializer_class=RegisterSerializer)
+    @action(detail=False, methods=["post"], url_path="register", serializer_class=RegisterSerializer)
     def register(self, request: ExtendedRequest, *args, **kwargs):
         serializer = self.serializer_use_case.save(serializer_class=self.get_serializer_class(), data=request.data)
 
@@ -44,7 +44,7 @@ class AuthSetController(AllowAnyMixin, BaseSetController):
 
         return self.get_response(result, status=status.HTTP_201_CREATED)
 
-    @action(methods=["post"], url_path="logout")
+    @action(detail=False, methods=["post"], url_path="logout")
     def logout(self, *args, **kwargs):
         response = self.get_response(status=status.HTTP_204_NO_CONTENT)
 
@@ -54,7 +54,7 @@ class AuthSetController(AllowAnyMixin, BaseSetController):
 
         return response
 
-    @action(methods=["post"], url_path="refresh")
+    @action(detail=False, methods=["post"], url_path="refresh")
     def refresh(self, request: ExtendedRequest, *args, **kwargs):
         result = self.use_case.refresh(request)
 

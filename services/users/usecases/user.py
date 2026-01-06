@@ -1,7 +1,7 @@
 from packages.framework.usecases import UseCaseAdapter
 from packages.kernel.types import ExtendedRequest
 from users.models import User
-from users.types import UserId
+from users.types import UpdateUserDTO, UserId
 
 
 class UserUseCase(UseCaseAdapter[User, UserId]):
@@ -18,6 +18,10 @@ class UserUseCase(UseCaseAdapter[User, UserId]):
         from django.contrib.auth.models import AnonymousUser
 
         return AnonymousUser()
+
+    @transaction.atomic
+    def edit(self, id: UserId, data: UpdateUserDTO) -> UpdateUserDTO:
+        return data
 
 
 user_use_case = UserUseCase()

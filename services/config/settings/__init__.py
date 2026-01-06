@@ -1,6 +1,7 @@
 from config.os import DEBUG
 
 from .apps import *
+from .aws import *
 from .base import *
 from .cors import *
 from .database import *

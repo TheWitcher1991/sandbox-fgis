@@ -14,13 +14,13 @@ class OrganizationSetController(BaseSetController):
     serializer_use_case = SerializerUseCase()
     serializer_class = OrganizationSerializer
 
-    @action(methods=["get"], url_path="obtain")
+    @action(detail=False, methods=["get"], url_path="obtain")
     def obtain(self, request: ExtendedRequest, *args, **kwargs):
         serializer = self.get_serializer(self.use_case.obtain(request))
         return self.get_response(serializer.data)
 
-    @action(methods=["put"], url_path="update")
-    def update(self, request: ExtendedRequest, *args, **kwargs):
+    @action(detail=False, methods=["put"], url_path="obtain")
+    def obtain(self, request: ExtendedRequest, *args, **kwargs):
         org_id = self.use_case.get_by_request(request)
 
         serializer = self.serializer_use_case.is_valid(serializer_class=self.get_serializer_class(), data=request.data)
