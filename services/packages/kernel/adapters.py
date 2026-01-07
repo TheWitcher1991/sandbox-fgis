@@ -4,6 +4,7 @@ from django.db.models import QuerySet
 from django_filters.rest_framework import CharFilter, FilterSet
 from rest_framework import serializers
 
+from directory.types import DocumentStatus
 from packages.kernel.utils import t
 
 
@@ -17,6 +18,14 @@ class ModelAdapter(models.Model):
 
 class UserModelAdapter(AbstractUser):
     objects = UserManager()
+
+    class Meta:
+        abstract = True
+
+
+class ModelStatusAdapter(models.Model):
+    status = models.CharField(max_length=32, choices=DocumentStatus, default=DocumentStatus.draft, db_index=True)
+    status_changed_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         abstract = True

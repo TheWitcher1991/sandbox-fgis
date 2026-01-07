@@ -20,6 +20,15 @@ class FederalAuthorityType(models.TextChoices):
     AGENCY = ("agency", t("Федеральное агентство"))
 
 
+class FederalOperationType(models.TextChoices):
+    INPUT_VOLUMES = "input_volumes", t("Ввод объемов семян")
+    INPUT_SEEDED = "input_seeded", t("Ввод высеянных/высаженных культур")
+    INPUT_VOLUMES_WITHOUT_DOCUMENTS = "input_volumes_without_documents", t(
+        "Ввод объемов семян без сопровождающих документов"
+    )
+    INPUT_PARENT = "input_parent", t("Ввод объемов родительских компонентов")
+
+
 class CultureType(models.TextChoices):
     ARID = "arid", t("Аридные")
     MELON = "melon", t("Бахчевые")
@@ -61,11 +70,17 @@ class CultureType(models.TextChoices):
     OTHER = "other", t("Другое")
 
 
+class OriginType(models.TextChoices):
+    IMPORTED = "imported", t("Ввезенные в РФ")
+    OWN = "own", t("Собственное производство")
+    PURCHASED = "purchased", t("Приобретенные внутри страны")
+
+
 class SeedReproductionType(models.TextChoices):
-    uncategorized = "uncategorized", t("Без категории")
-    original = "original", t("Оригинальные")
-    reproductive = "reproductive", t("Репродукционные")
-    elite = "elite", t("Элитные")
+    UNCATEGORIZED = "uncategorized", t("Без категории")
+    ORIGINAL = "original", t("Оригинальные")
+    REPRODUCTIVE = "reproductive", t("Репродукционные")
+    ELITE = "elite", t("Элитные")
 
 
 class PurposeImportType(models.TextChoices):
