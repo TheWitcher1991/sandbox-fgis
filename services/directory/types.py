@@ -1,6 +1,23 @@
+from typing import NewType
+
 from django.db import models
 
 from packages.kernel.utils import t
+
+SeedReproductionId = NewType("SeedReproductionId", int)
+PurposeImportId = NewType("PurposeImportId", int)
+WhatImportId = NewType("WhatImportId", int)
+CultureId = NewType("CultureId", int)
+CountryId = NewType("CountryId", int)
+DistrictId = NewType("DistrictId", int)
+RegionId = NewType("RegionId", int)
+FederalAuthorityId = NewType("FederalAuthorityId", int)
+
+
+class FederalAuthorityType(models.TextChoices):
+    MINISTRY = ("ministry", t("Федеральное министерство"))
+    SERVICE = ("service", t("Федеральная служба"))
+    AGENCY = ("agency", t("Федеральное агентство"))
 
 
 class CultureType(models.TextChoices):
@@ -95,3 +112,84 @@ class TypeSelection(models.TextChoices):
     variety = "variety", t("Сорт")
     hybrid = "hybrid", t("Гибрид")
     line = "line", t("Линия")
+
+
+class CountryCode(models.TextChoices):
+    RU = "ru", t("Россия")
+    BY = "by", t("Беларусь")
+    KZ = "kz", t("Казахстан")
+    AM = "am", t("Армения")
+    KG = "kg", t("Киргизия")
+
+    UA = "ua", t("Украина")
+    MD = "md", t("Молдова")
+    UZ = "uz", t("Узбекистан")
+    TJ = "tj", t("Таджикистан")
+    TM = "tm", t("Туркменистан")
+    AZ = "az", t("Азербайджан")
+
+    DE = "de", t("Германия")
+    FR = "fr", t("Франция")
+    IT = "it", t("Италия")
+    ES = "es", t("Испания")
+    PL = "pl", t("Польша")
+    NL = "nl", t("Нидерланды")
+    BE = "be", t("Бельгия")
+    AT = "at", t("Австрия")
+    CH = "ch", t("Швейцария")
+    SE = "se", t("Швеция")
+    NO = "no", t("Норвегия")
+    FI = "fi", t("Финляндия")
+    DK = "dk", t("Дания")
+    CZ = "cz", t("Чехия")
+    SK = "sk", t("Словакия")
+    HU = "hu", t("Венгрия")
+    RO = "ro", t("Румыния")
+    BG = "bg", t("Болгария")
+    GR = "gr", t("Греция")
+    PT = "pt", t("Португалия")
+    IE = "ie", t("Ирландия")
+    GB = "gb", t("Великобритания")
+    IS = "is", t("Исландия")
+    EE = "ee", t("Эстония")
+    LV = "lv", t("Латвия")
+    LT = "lt", t("Литва")
+
+    CN = "cn", t("Китай")
+    JP = "jp", t("Япония")
+    KR = "kr", t("Южная Корея")
+    IN = "in", t("Индия")
+    PK = "pk", t("Пакистан")
+    BD = "bd", t("Бангладеш")
+    VN = "vn", t("Вьетнам")
+    TH = "th", t("Таиланд")
+    ID = "id", t("Индонезия")
+    MY = "my", t("Малайзия")
+    PH = "ph", t("Филиппины")
+    IR = "ir", t("Иран")
+    TR = "tr", t("Турция")
+    IL = "il", t("Израиль")
+    SA = "sa", t("Саудовская Аравия")
+    AE = "ae", t("ОАЭ")
+    QA = "qa", t("Катар")
+
+    US = "us", t("США")
+    CA = "ca", t("Канада")
+    MX = "mx", t("Мексика")
+    BR = "br", t("Бразилия")
+    AR = "ar", t("Аргентина")
+    CL = "cl", t("Чили")
+    CO = "co", t("Колумбия")
+    PE = "pe", t("Перу")
+
+    EG = "eg", t("Египет")
+    MA = "ma", t("Марокко")
+    DZ = "dz", t("Алжир")
+    TN = "tn", t("Тунис")
+    ZA = "za", t("ЮАР")
+    KE = "ke", t("Кения")
+    NG = "ng", t("Нигерия")
+    GH = "gh", t("Гана")
+
+    AU = "au", t("Австралия")
+    NZ = "nz", t("Новая Зеландия")
