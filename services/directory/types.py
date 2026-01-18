@@ -63,6 +63,11 @@ class CultureType(models.TextChoices):
     OTHER = "other", t("Другое")
 
 
+class PartyRefusalSolution(models.TextChoices):
+    DESTROY = "destroy", t("Уничтожить")
+    RETURN = "return", t("Возвратить")
+
+
 class OriginType(models.TextChoices):
     IMPORTED = "imported", t("Ввезенные в РФ")
     OWN = "own", t("Собственное производство")

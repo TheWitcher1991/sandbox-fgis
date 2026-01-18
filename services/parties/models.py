@@ -1,5 +1,7 @@
 from django.db import models
 
+from directory.models import CultureTypeSelection
+from directory.types import BatchUnit, PartyRefusalSolution, TypeSelection
 from packages.kernel.utils import t
 from parties.adapters import PartyAdapter, PartySeedAdapter
 
@@ -13,7 +15,7 @@ class ImportParty(PartyAdapter):
     )
     what = models.ForeignKey(
         to="directory.WhatParty",
-        verbose_name=t("Тип импортируем"),
+        verbose_name=t("Тип импорта"),
         on_delete=models.CASCADE,
         related_name="import_parties",
     )
@@ -43,10 +45,40 @@ class ImportParty(PartyAdapter):
 
 
 class ImportPartySeed(PartySeedAdapter):
+    culture = models.ForeignKey(
+        to="directory.Culture",
+        verbose_name=t("Культура"),
+        on_delete=models.CASCADE,
+        related_name="import_seeds",
+    )
+    selection = models.ForeignKey(
+        to="directory.CultureTypeSelection",
+        verbose_name=t("Сорт/гибрид"),
+        on_delete=models.CASCADE,
+        related_name="import_seeds",
+    )
+    reproduction = models.ForeignKey(
+        to="directory.SeedReproduction",
+        verbose_name=t("Репродукция"),
+        on_delete=models.CASCADE,
+        related_name="import_seeds",
+    )
+    country = models.ForeignKey(
+        to="directory.Country",
+        verbose_name=t("Страна"),
+        on_delete=models.CASCADE,
+        related_name="import_seeds",
+    )
+    quantity = models.PositiveIntegerField(t("Количество"))
+    type_selection = models.CharField("Тип селекции", choices=TypeSelection.choices, max_length=32)
+    unit = models.CharField("Единица измерения", choices=BatchUnit.choices, max_length=32)
+    solution = models.CharField(t("Решение в случае отказа"), choices=PartyRefusalSolution.choices, max_length=32)
+    admitted = models.BooleanField(t("Допущено"), default=False)
     party = models.ForeignKey(
         to=ImportParty,
+        verbose_name=t("Импорт партии"),
         on_delete=models.CASCADE,
-        related_name="seeds",
+        related_name="import_seeds",
     )
 
     class Meta:
