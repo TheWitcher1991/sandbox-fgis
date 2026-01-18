@@ -5,6 +5,15 @@ from packages.kernel.adapters import OrganizationAdapter
 from packages.kernel.utils import t
 
 
+class Manufacturer(OrganizationAdapter):
+    name = models.CharField(t("Название"), max_length=CHAR_MAX_LENGTH)
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = t("Производитель")
+        verbose_name_plural = t("Производитель")
+
+
 class Shipper(OrganizationAdapter):
     name = models.CharField(t("Название"), max_length=CHAR_MAX_LENGTH)
 

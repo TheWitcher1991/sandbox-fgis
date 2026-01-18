@@ -4,6 +4,7 @@ from django.db import models
 
 from packages.kernel.utils import t
 
+ManufacturerId = NewType("ManufacturerId", int)
 ShipperId = NewType("ShipperId", int)
 ConsigneeId = NewType("ConsigneeId", int)
 AuthorityId = NewType("FederalAuthorityId", int)

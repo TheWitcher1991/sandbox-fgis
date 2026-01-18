@@ -1,5 +1,12 @@
-from enterprises.models import Authority, Consignee, Shipper
+from enterprises.models import Authority, Consignee, Shipper, Manufacturer
 from packages.kernel.adapters import ModelSerializerAdapter
+
+
+class ManufacturerSerializer(ModelSerializerAdapter):
+
+    class Meta:
+        model = Manufacturer
+        fields = "__all__"
 
 
 class ShipperSerializer(ModelSerializerAdapter):
