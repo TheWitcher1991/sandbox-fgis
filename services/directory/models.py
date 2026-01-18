@@ -41,6 +41,20 @@ class Culture(ModelAdapter):
         verbose_name_plural = t("Культуры")
 
 
+class CultureTypeSelection(ModelAdapter):
+    name = models.CharField(t("Название"), max_length=CHAR_MAX_LENGTH)
+    culture = models.ForeignKey(
+        to=Culture,
+        on_delete=models.CASCADE,
+        related_name="selections",
+    )
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = t("Сорт/гибрид")
+        verbose_name_plural = t("Сорты/гибриды")
+
+
 class Country(models.Model):
     name = models.CharField("Название", max_length=CHAR_MAX_LENGTH)
 
