@@ -23,6 +23,10 @@ class UseCaseAdapter(Generic[T, K]):
     def DoesNotExist(self):
         return self.model.DoesNotExist
 
+    @property
+    def objects(self) -> models.QuerySet[T]:
+        return self.model.objects
+
     def optimize(self) -> models.QuerySet[T]:
         raise NotImplementedError()
 
@@ -77,6 +81,10 @@ class UseCaseAdapter(Generic[T, K]):
 
     def delete(self, pk: K) -> tuple[int, dict]:
         return self.get_queryset().filter(id=pk).delete()
+
+
+class RepositoryAdapter(UseCaseAdapter[T, K]):
+    pass
 
 
 class CacheUseCaseAdapter:

@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class ManufacturersConfig(AppConfig):
+class DirectoryConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "manufacturers"
-    label = "manufacturers"
+    name = "directory"
+    label = "directory"

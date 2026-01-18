@@ -1,4 +1,4 @@
-from typing import NewType
+from typing import NewType, TypedDict
 
 from django.db import models
 
@@ -15,3 +15,7 @@ class MemberRole(models.TextChoices):
     viewer = "viewer", t("Просмотр")
     instructor = "instructor", t("Преподаватель")
     student = "student", t("Студент")
+
+
+class UpdateUserDTO(TypedDict):
+    pass

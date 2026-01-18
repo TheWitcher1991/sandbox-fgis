@@ -1,4 +1,5 @@
 from enum import StrEnum, auto
+from typing import TypedDict
 
 from django.http import HttpRequest
 from rest_framework.request import wrap_attributeerrors
@@ -23,3 +24,22 @@ class ExtendedRequest(HttpRequest, Request):
 
 class LoggerResource(StrEnum):
     kernel = auto()
+
+
+class JWTSignedSession(TypedDict):
+    user: int
+    refresh_token: str
+    access_token: str
+    session_expires: float
+    access_expires: float
+    token_type: str
+
+
+class JWTRefreshSession(TypedDict):
+    access_token: str
+    access_expires: float
+
+
+class JWTAuthenticated(TypedDict):
+    user: int
+    token: str

@@ -26,11 +26,12 @@ urlpatterns = [
     path("v1/", include("users.routers", namespace="users")),
     path("v1/", include("applications.routers", namespace="applications")),
     path("v1/", include("knowledge.routers", namespace="knowledge")),
-    path("v1/", include("manufacturers.routers", namespace="manufacturers")),
+    path("v1/", include("enterprises.routers", namespace="enterprises")),
     path("v1/", include("parties.routers", namespace="parties")),
     path("v1/", include("reports.routers", namespace="reports")),
     path("v1/", include("roles.routers", namespace="roles")),
     path("v1/", include("training.routers", namespace="training")),
+    path("v1/", include("directory.routers", namespace="directory")),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

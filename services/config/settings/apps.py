@@ -16,10 +16,11 @@ INSTALLED_APPS = [
     "users",
     "applications",
     "knowledge",
-    "manufacturers",
+    "enterprises",
     "parties",
     "reports",
     "roles",
     "training",
+    "directory",
     "drf_spectacular",
 ]

@@ -7,5 +7,8 @@ class MemberUseCase(UseCaseAdapter[Member, MemberId]):
     def __init__(self):
         super().__init__(Member)
 
+    def optimize(self):
+        return self.objects.select_related("user", "organization")
+
 
 member_use_case = MemberUseCase()
