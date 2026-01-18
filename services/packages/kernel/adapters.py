@@ -5,6 +5,7 @@ from django_filters.rest_framework import CharFilter, FilterSet
 from rest_framework import serializers
 
 from directory.types import DocumentStatus
+from packages.framework.fields import DocumentNumberField
 from packages.kernel.utils import t
 
 
@@ -23,7 +24,8 @@ class UserModelAdapter(AbstractUser):
         abstract = True
 
 
-class ModelStatusAdapter(models.Model):
+class DocumentModelAdapter(ModelAdapter):
+    number = DocumentNumberField(verbose_name=t("Номер документа"))
     status = models.CharField(max_length=32, choices=DocumentStatus, default=DocumentStatus.draft, db_index=True)
     status_changed_at = models.DateTimeField(null=True, blank=True)
 
