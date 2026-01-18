@@ -1,7 +1,7 @@
 from django.db import models
 
 from packages.kernel.utils import t
-from parties.adapters import PartyAdapter
+from parties.adapters import PartyAdapter, PartySeedAdapter
 
 
 class ImportParty(PartyAdapter):
@@ -17,9 +17,9 @@ class ImportParty(PartyAdapter):
         on_delete=models.CASCADE,
         related_name="import_parties",
     )
-    organization = models.ForeignKey(
-        to="organizations.Organization",
-        verbose_name=t("Импортер"),
+    manufacturer = models.ForeignKey(
+        to="enterprises.Manufacturer",
+        verbose_name=t("Производитель"),
         on_delete=models.CASCADE,
         related_name="import_parties",
     )
@@ -35,14 +35,24 @@ class ImportParty(PartyAdapter):
         on_delete=models.CASCADE,
         related_name="import_parties",
     )
-    user = models.ForeignKey(
-        to="users.User", verbose_name=t("Автор"), on_delete=models.CASCADE, related_name="import_parties"
-    )
 
     class Meta:
         ordering = ("-created_at",)
         verbose_name = t("Импорт партии")
         verbose_name_plural = t("Импорт партий")
+
+
+class ImportPartySeed(PartySeedAdapter):
+    party = models.ForeignKey(
+        to=ImportParty,
+        on_delete=models.CASCADE,
+        related_name="seeds",
+    )
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = t("Семена импорта")
+        verbose_name_plural = t("Семена импорта")
 
 
 class ExportParty(PartyAdapter):

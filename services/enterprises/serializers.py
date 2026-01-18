@@ -1,4 +1,4 @@
-from enterprises.models import Authority, Consignee, Shipper, Manufacturer
+from enterprises.models import Authority, Consignee, Manufacturer, Shipper
 from packages.kernel.adapters import ModelSerializerAdapter
 
 
