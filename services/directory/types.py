@@ -11,13 +11,6 @@ CultureId = NewType("CultureId", int)
 CountryId = NewType("CountryId", int)
 DistrictId = NewType("DistrictId", int)
 RegionId = NewType("RegionId", int)
-FederalAuthorityId = NewType("FederalAuthorityId", int)
-
-
-class FederalAuthorityType(models.TextChoices):
-    MINISTRY = ("ministry", t("Федеральное министерство"))
-    SERVICE = ("service", t("Федеральная служба"))
-    AGENCY = ("agency", t("Федеральное агентство"))
 
 
 class FederalOperationType(models.TextChoices):

@@ -80,18 +80,3 @@ class Region(models.Model):
         ordering = ("-created_at",)
         verbose_name = t("Субъект")
         verbose_name_plural = t("Субъекты")
-
-
-class FederalAuthority(ModelAdapter):
-    name = models.CharField(t("Название"), max_length=CHAR_MAX_LENGTH)
-    district = models.ForeignKey(
-        to=District,
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-    )
-
-    class Meta:
-        ordering = ("-created_at",)
-        verbose_name = t("Федеральный орган исполнительной власти")
-        verbose_name_plural = t("Федеральные органы исполнительной власти")
