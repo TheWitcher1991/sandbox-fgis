@@ -2,11 +2,10 @@ from directory.models import (
     Country,
     Culture,
     District,
-    FederalAuthority,
-    PurposeImport,
     Region,
     SeedReproduction,
-    WhatImport,
+    TargetParty,
+    WhatParty,
 )
 from packages.kernel.adapters import ModelSerializerAdapter
 
@@ -18,17 +17,17 @@ class SeedReproductionSerializer(ModelSerializerAdapter):
         fields = "__all__"
 
 
-class PurposeImportSerializer(ModelSerializerAdapter):
+class TargetPartySerializer(ModelSerializerAdapter):
 
     class Meta:
-        model = PurposeImport
+        model = TargetParty
         fields = "__all__"
 
 
-class WhatImportSerializer(ModelSerializerAdapter):
+class WhatPartySerializer(ModelSerializerAdapter):
 
     class Meta:
-        model = WhatImport
+        model = WhatParty
         fields = "__all__"
 
 
@@ -57,11 +56,4 @@ class RegionSerializer(ModelSerializerAdapter):
 
     class Meta:
         model = Region
-        fields = "__all__"
-
-
-class FederalAuthoritySerializer(ModelSerializerAdapter):
-
-    class Meta:
-        model = FederalAuthority
         fields = "__all__"

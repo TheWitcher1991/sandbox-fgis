@@ -14,6 +14,15 @@ class Shipper(OrganizationAdapter):
         verbose_name_plural = t("Грузоотправители")
 
 
+class Consignee(OrganizationAdapter):
+    name = models.CharField(t("Название"), max_length=CHAR_MAX_LENGTH)
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = t("Грузополучатель")
+        verbose_name_plural = t("Грузополучатели")
+
+
 class Authority(OrganizationAdapter):
     name = models.CharField(t("Название"), max_length=CHAR_MAX_LENGTH)
     district = models.ForeignKey(

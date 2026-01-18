@@ -5,8 +5,8 @@ from django.db import models
 from packages.kernel.utils import t
 
 SeedReproductionId = NewType("SeedReproductionId", int)
-PurposeImportId = NewType("PurposeImportId", int)
-WhatImportId = NewType("WhatImportId", int)
+TargetPartyId = NewType("TargetPartyId", int)
+WhatPartyId = NewType("WhatPartyId", int)
 CultureId = NewType("CultureId", int)
 CountryId = NewType("CountryId", int)
 DistrictId = NewType("DistrictId", int)
@@ -76,7 +76,7 @@ class SeedReproductionType(models.TextChoices):
     ELITE = "elite", t("Элитные")
 
 
-class PurposeImportType(models.TextChoices):
+class TargetPartyType(models.TextChoices):
     SCIENTIFIC_RESEARCH = ("scientific_research", t("Для проведения научных исследований"))
     EXPERT_EXAMINATION = ("expert_examination", t("Для проведения экспертиз"))
     COMMERCIAL_PRODUCTION = ("commercial_production", t("Для производства товарной продукции"))
@@ -89,7 +89,7 @@ class PurposeImportType(models.TextChoices):
     COMMODITY_PURPOSE = ("commodity_purpose", t("Товарные"))
 
 
-class WhatImportType(models.TextChoices):
+class WhatPartyType(models.TextChoices):
     TRANSIT_VIA_EAEU = ("transit_via_eaeu", t("Ввоз семян транзитом через страну ЕАЭС"))
     TRANSIT_VIA_EAEU_WITH_CUSTOMS = (
         "transit_via_eaeu_with_customs",

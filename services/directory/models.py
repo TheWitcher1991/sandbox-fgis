@@ -14,22 +14,22 @@ class SeedReproduction(ModelAdapter):
         verbose_name_plural = t("Репродукции семян")
 
 
-class PurposeImport(ModelAdapter):
+class TargetParty(ModelAdapter):
     name = models.CharField(t("Название"), max_length=CHAR_MAX_LENGTH)
 
     class Meta:
         ordering = ("-created_at",)
-        verbose_name = t("Цель импорта")
-        verbose_name_plural = t("Цели импорта")
+        verbose_name = t("Цель партии")
+        verbose_name_plural = t("Цели партий")
 
 
-class WhatImport(ModelAdapter):
+class WhatParty(ModelAdapter):
     name = models.CharField(t("Название"), max_length=CHAR_MAX_LENGTH)
 
     class Meta:
         ordering = ("-created_at",)
-        verbose_name = t("Тип импорта")
-        verbose_name_plural = t("Типы импорта")
+        verbose_name = t("Тип партии")
+        verbose_name_plural = t("Типы партий")
 
 
 class Culture(ModelAdapter):
