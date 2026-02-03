@@ -120,6 +120,11 @@ class ModelSetBaseSetController(
     pass
 
 
+class ReadOnlySetController(mixins.RetrieveModelMixin, mixins.ListModelMixin, BaseController):
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+
 class CreateController(mixins.CreateModelMixin, BaseController):
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)

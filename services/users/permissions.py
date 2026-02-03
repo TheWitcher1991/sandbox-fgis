@@ -34,6 +34,23 @@ class IsMemberRole(IsMember):
         return request.user.member.role in self.member_roles
 
 
+class IsMemberAdminOrReadonly(IsMember):
+
+    def has_permission(self, request: ExtendedRequest, view):
+        has_permission = super().has_permission(request, view)
+
+        if has_permission:
+            if request.method in ["GET", "HEAD", "OPTIONS"]:
+                return True
+            else:
+                return request.user.member.role in {
+                    MemberRole.superadmin,
+                    MemberRole.admin,
+                }
+        else:
+            return False
+
+
 class IsAdmin(IsMemberRole):
     member_roles = {
         MemberRole.superadmin,
