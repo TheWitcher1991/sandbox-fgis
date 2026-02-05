@@ -1,9 +1,11 @@
 from rest_framework.decorators import action
 
-from packages.framework.controllers import BaseSetController
+from packages.framework.controllers import BaseSetController, ReadOnlySetController
 from packages.kernel.types import ExtendedRequest
 from packages.usecases.serializer import SerializerUseCase
-from users.serializers import UserSerializer
+from users.filters import MemberFilter
+from users.serializers import MemberSerializer, UserSerializer
+from users.usecases.member import MemberUseCase, member_use_case
 from users.usecases.user import UserUseCase
 
 
@@ -24,3 +26,13 @@ class UserSetController(BaseSetController):
         serializer = self.serializer_use_case.is_valid(serializer_class=self.get_serializer_class(), data=request.data)
         result = self.use_case.edit(id=self.request.user.id, data=serializer.validated_data)
         return self.get_response(result)
+
+
+class MemberSetController(ReadOnlySetController):
+    prefix = "members"
+
+    queryset = member_use_case.optimize()
+    use_case = MemberUseCase()
+    serializer_use_case = SerializerUseCase()
+    serializer_class = MemberSerializer
+    filterset_class = MemberFilter

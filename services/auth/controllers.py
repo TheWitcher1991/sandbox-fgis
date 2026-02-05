@@ -19,7 +19,7 @@ class AuthSetController(AllowAnyMixin, BaseSetController):
 
     @action(detail=False, methods=["post"], url_path="login", serializer_class=LoginSerializer)
     def login(self, request: ExtendedRequest, *args, **kwargs):
-        serializer = self.serializer_use_case.save(serializer_class=self.get_serializer_class(), data=request.data)
+        serializer = self.serializer_use_case.is_valid(serializer_class=self.get_serializer_class(), data=request.data)
 
         result = self.use_case.login(request, serializer.validated_data)
 
@@ -38,7 +38,7 @@ class AuthSetController(AllowAnyMixin, BaseSetController):
 
     @action(detail=False, methods=["post"], url_path="register", serializer_class=RegisterSerializer)
     def register(self, request: ExtendedRequest, *args, **kwargs):
-        serializer = self.serializer_use_case.save(serializer_class=self.get_serializer_class(), data=request.data)
+        serializer = self.serializer_use_case.is_valid(serializer_class=self.get_serializer_class(), data=request.data)
 
         result = self.use_case.register(serializer.validated_data)
 

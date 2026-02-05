@@ -1,3 +1,8 @@
-app_name = "applications"
+from applications.controllers import ApplicationSetController
+from packages.framework.routers import auto_router
 
-urlpatterns = []
+app_name = "enterprises"
+
+router = auto_router(ApplicationSetController)
+
+urlpatterns = router.urls
