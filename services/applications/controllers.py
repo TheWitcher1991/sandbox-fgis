@@ -1,22 +1,22 @@
+from applications.filters import ApplicationFilter
+from applications.serializers import ApplicationSerializer
+from applications.usecases import ApplicationUseCase, application_use_case
 from organizations.adapters import OrganizationAdapter
 from packages.framework.controllers import ModelSetBaseSetController
 from packages.kernel.types import ExtendedRequest
 from packages.usecases.serializer import SerializerUseCase
-from parties.filters import ImportPartyFilter
-from parties.serializers import ImportPartySerializer
-from parties.usecases.import_party import ImportPartyUseCase, import_party_use_case
-from users.permissions import IsMember
+from users.permissions import IsMemberAdminOrReadonly
 
 
-class ImportPartySetController(OrganizationAdapter, ModelSetBaseSetController):
-    prefix = "imports"
+class ApplicationSetController(OrganizationAdapter, ModelSetBaseSetController):
+    prefix = "applications"
 
-    queryset = import_party_use_case.optimize()
-    use_case = ImportPartyUseCase()
+    queryset = application_use_case.optimize()
+    use_case = ApplicationUseCase()
     serializer_use_case = SerializerUseCase()
-    serializer_class = ImportPartySerializer
-    filterset_class = ImportPartyFilter
-    permission_classes = (IsMember,)
+    serializer_class = ApplicationSerializer
+    filterset_class = ApplicationFilter
+    permission_classes = (IsMemberAdminOrReadonly,)
 
     def create(self, request: ExtendedRequest, *args, **kwargs):
         serializer = self.serializer_use_case.is_valid(serializer_class=self.get_serializer_class(), data=request.data)

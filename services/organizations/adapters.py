@@ -101,3 +101,16 @@ class OrganizationAdapter:
 
         if self.strict_organization:
             self.enforce_organization()
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        model = queryset.model
+
+        if hasattr(model, "organization_id"):
+            if self.organization_id:
+                return queryset.filter(organization_id=self.organization_id)
+            else:
+                return queryset.none()
+        else:
+            return queryset.none()

@@ -73,7 +73,7 @@ class Controller:
         action_or_method = self._get_action_or_method()
         return self.serializer_class_map.get(action_or_method) or self.serializer_class
 
-    def get_response(self, data: Any, status: int = HTTP_200_OK, serializer=None) -> Response:
+    def get_response(self, data: Any = None, status: int = HTTP_200_OK, serializer=None) -> Response:
         if serializer:
             if isinstance(data, list):
                 return Response(serializer(data, many=True).data, status=status)
@@ -118,6 +118,11 @@ class ModelSetBaseSetController(
     BaseSetController,
 ):
     pass
+
+
+class ReadOnlySetController(mixins.RetrieveModelMixin, mixins.ListModelMixin, BaseController):
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
 
 class CreateController(mixins.CreateModelMixin, BaseController):
